@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th =  "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="mainLayout.html">
+<div layout:fragment="siteContent">
+    <div class="container mt-5" th:if="${requestlist!=null}">
+        <div class="container text-center m-3" th:if="${requestlist.isHandled()==false}">
+            <h4 class="text-danger">Новая необработанная завка</h4>
+        </div>
+        <div class="container text-center m-3" th:if="${requestlist.isHandled()==true}">
+            <h4 class="text-success">Обработанная завка</h4>
+        </div>
+        <div class="row row-cols-4 g-4">
+            <div  class="col  m-2 w-50 mx-auto">
+                <form action="/update" method="post">
+                    <input type="hidden" th:value="${requestlist.getId()}" name="id">
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Ф.И.О:</strong></label>
+                        <input type="text" class="form-control"
+                               name="userName" th:value="${requestlist.getUserName()}" readonly>
+                    </div>
+                    <div class="mb-3"><label class="form-label"><strong>Курс:</strong></label>
+                        <input class="form-control" th:value="${requestlist.getCourseName()}"
+                                name="courseName" readonly>
+                    </div>
+                    <div class="mb-3"><label class="form-label"><strong>Телефон:</strong></label>
+                        <input type="text" class="form-control"
+                               name="phone" th:value="${requestlist.getPhone()}"  readonly>
+                    </div>
+                    <div class="mb-3"><label class="form-label"><strong>Комментарии:</strong></label>
+                        <textarea class="form-control"  rows="5"
+                                  name="commentary" readonly th:text="${requestlist.getCommentary()}"
+                                  th:value="${requestlist.getCommentary()}">
+                        </textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button th:if="${requestlist.isHandled()==false}"
+                                class="btn btn-success" >
+                            Обработать заявку
+                        </button>
+                        <button type="button" class="btn btn-danger"data-bs-toggle="modal"
+                                data-bs-target="#delete">Удалить заявку</button>
+                    </div>
+                </form>
+                <!-- Modal -->
+                <div class="modal fade" id="delete" data-bs-backdrop="static"
+                     data-bs-keyboard="false" tabindex="-1"
+                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form action="/delete" method="post">
+                            <div class="modal-content">
+                                <input type="hidden" th:value="${requestlist.getId()}" name="request_id">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                        Предупреждение</h1>
+                                    <button type="button" class="btn-close"
+                                            data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h3>Вы уверены?</h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">
+                                        НЕТ</button>
+                                    <button  class="btn btn-danger">ДА</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container text-center m-5" th:if="${requestlist==null}">
+        <h1>Пустая заявка</h1>
+    </div>
+</div>
+</html>

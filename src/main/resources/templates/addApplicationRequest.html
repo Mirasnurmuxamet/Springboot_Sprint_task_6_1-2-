@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th =  "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="mainLayout.html">
+<div layout:fragment="siteContent">
+    <div class="container mt-5">
+        <div class="row row-cols-4 g-4">
+            <div  class="col  m-2 w-50 mx-auto">
+                <form action="/add_applicationRequest" method="post">
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Ф.И.О:</strong></label>
+                        <input type="text" class="form-control" placeholder="Ф.И.О"
+                               name="userName" required>
+                    </div>
+                    <div class="mb-3"><label class="form-label"><strong>Курс:</strong></label>
+                        <select class="form-control" placeholder="Выберие курс"
+                                name="courseName" required>
+                            <option>Java PRO</option>
+                            <option>Java Standard Edition</option>
+                            <option>Python</option>
+                            <option>Java Script</option>
+                            <option>Web Technologies</option>
+                            <option>UX/UI Design</option>
+                        </select>
+                    </div>
+                    <div class="mb-3"><label class="form-label"><strong>Телефон:</strong></label>
+                        <input type="text" class="form-control"
+                               placeholder="Введите номер телефона"
+                               name="phone" required>
+                    </div>
+                    <div class="mb-3"><label class="form-label"><strong>Комментарии:</strong></label>
+                        <textarea class="form-control" rows="5"
+                                  placeholder="Комментарии" name="commentary" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-success">Добавить заявку</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
